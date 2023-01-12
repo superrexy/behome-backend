@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model users {
+    id         Int       @id @default(autoincrement())
+    name       String    @db.VarChar(255)
+    address    String    @db.VarChar(255)
+    phone      String    @db.VarChar(255)
+    email      String    @unique @db.VarChar(255)
+    password   String    @db.VarChar(255)
+    role       String    @db.VarChar(255)
+    user_image String?   @db.VarChar(255)
+    created_at DateTime  @default(now())
+    updated_at DateTime  @updatedAt
+    news       news[]
+    psikolog   psikolog?
+}
+
+model news {
+    id          Int      @id @default(autoincrement())
+    news_image  String   @db.VarChar(255)
+    description String   @db.Text
+    user_id     Int
+    user        users    @relation(fields: [user_id], references: [id])
+    created_at  DateTime @default(now())
+    updated_at  DateTime @updatedAt
+}
+
+model psikolog {
+    id                      Int                  @id @default(autoincrement())
+    name                    String               @db.VarChar(255)
+    skill                   String               @db.VarChar(255)
+    psikolog_image          String?              @db.VarChar(255)
+    virtual_account_payment String               @db.VarChar(255)
+    user_id                 Int                  @unique
+    user                    users                @relation(fields: [user_id], references: [id])
+    created_at              DateTime             @default(now())
+    updated_at              DateTime             @updatedAt
+    psikolog_schedules      psikolog_schedules[]
+}
+
+model psikolog_schedules {
+    id          Int      @id @default(autoincrement())
+    time        String   @db.VarChar(255)
+    is_selected Boolean
+    psikolog_id Int
+    psikolog    psikolog @relation(fields: [psikolog_id], references: [id])
+    created_at  DateTime @default(now())
+    updated_at  DateTime @updatedAt
+}
