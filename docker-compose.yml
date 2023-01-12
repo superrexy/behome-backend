@@ -3,7 +3,9 @@ version: "3.3"
 services:
   api:
     container_name: behome-mobile
-    image: bintangrezeka/behome-mobile:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     env_file:
       - .env
