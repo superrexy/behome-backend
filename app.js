@@ -24,7 +24,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // Index Route
 app.get("/", (req, res) => {
-    return res.send("ICP Gahara Backend");
+    return res.send("Behome Backend");
 });
 
 // API Routes
