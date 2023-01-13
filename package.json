@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node swagger && node ./bin/www",
     "dev": "node swagger && NODE_ENV=development nodemon ./bin/www",
     "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset -f",
