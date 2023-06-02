@@ -1,4 +1,5 @@
 const swaggerAutogen = require("swagger-autogen")();
+require("dotenv").config();
 
 const outputFile = "./swagger_output.json";
 const endpointsFiles = ["./app/api/**/*.router.js"];
@@ -8,7 +9,7 @@ const doc = {
     version: "1.0.0",
     title: "Behome Backend",
   },
-  host: "localhost:3000",
+  host: `localhost:${process.env.APP_PORT || 3000}`,
   basePath: "/api/v1/",
   schemes: ["http"],
   securityDefinitions: {

@@ -78,68 +78,75 @@ module.exports = {
         });
       }
 
-      if (req.file) {
-        if (psikolog.psikolog_image) {
-          const path = psikolog.psikolog_image;
-          fs.unlinkSync(path);
-        }
+      const data = await prisma.$transaction(
+        async (tx) => {
+          if (req.file) {
+            if (psikolog.psikolog_image) {
+              const path = psikolog.psikolog_image;
+              fs.unlinkSync(path);
+            }
 
-        await prisma.psikolog.update({
-          where: {
-            id: psikolog.id,
-          },
-          data: {
-            name,
-            skill,
-            virtual_account_payment,
-            psikolog_image: req.file.path,
-          },
-        });
-      }
+            await tx.psikolog.update({
+              where: {
+                id: psikolog.id,
+              },
+              data: {
+                name,
+                skill,
+                virtual_account_payment,
+                psikolog_image: req.file.path,
+              },
+            });
+          }
 
-      await prisma.psikolog.update({
-        where: {
-          id: psikolog.id,
-        },
-        data: {
-          name,
-          skill,
-          virtual_account_payment,
-        },
-      });
-
-      if (schedules) {
-        const jsonSchedules = JSON.parse(schedules);
-        console.log(jsonSchedules);
-        await prisma.$transaction(async (tx) => {
-          await Promise.all(
-            jsonSchedules.map(async (schedule) => {
-              await tx.psikolog_schedules.update({
-                where: {
-                  id: schedule.id,
+          await tx.psikolog.update({
+            where: {
+              id: psikolog.id,
+            },
+            data: {
+              name,
+              skill,
+              virtual_account_payment,
+              user: {
+                update: {
+                  name,
                 },
-                data: {
-                  is_selected: schedule.is_selected,
-                },
-              });
-            })
-          );
-        });
-      }
+              },
+            },
+          });
 
-      const getUpdatedPsikolog = await prisma.psikolog.findUnique({
-        where: {
-          id: psikolog.id,
+          if (schedules) {
+            const jsonSchedules = JSON.parse(schedules);
+            await Promise.all(
+              jsonSchedules.map(async (schedule) => {
+                await tx.psikolog_schedules.update({
+                  where: {
+                    id: schedule.id,
+                  },
+                  data: {
+                    is_selected: schedule.is_selected,
+                  },
+                });
+              })
+            );
+          }
+
+          return await tx.psikolog.findUnique({
+            where: {
+              id: psikolog.id,
+            },
+            include: {
+              psikolog_schedules: {},
+            },
+          });
         },
-        include: {
-          psikolog_schedules: {},
-        },
-      });
+        { timeout: 10000 }
+      );
 
       return res.status(200).json({
         status: true,
         message: "SUCCESS_UPDATE_PSIKOLOG",
-        data: getUpdatedPsikolog,
+        data: data,
       });
     } catch (error) {
       if (req.file) {

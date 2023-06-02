@@ -54,6 +54,17 @@ module.exports = {
         });
       }
 
+      if (checkUser.role === "psikolog") {
+        await prisma.psikolog.update({
+          where: {
+            user_id: id,
+          },
+          data: {
+            name,
+          },
+        });
+      }
+
       const user = await prisma.users.update({
         where: {
           id,

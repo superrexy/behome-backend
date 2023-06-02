@@ -17,7 +17,7 @@ router.get("/psikologs/:id", authMiddleware, getPsikologByID);
 router.put(
   "/psikologs/:id/update",
   authMiddleware,
-  adminMiddleware,
+  adminMiddleware(["admin"]),
   store,
   updatePsikolog
 );

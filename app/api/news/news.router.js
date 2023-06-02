@@ -16,14 +16,25 @@ const {
 
 router.get("/news", authMiddleware, getNews);
 router.get("/news/:id", authMiddleware, getNewsByID);
-router.post("/news/create", authMiddleware, adminMiddleware, store, createNews);
+router.post(
+  "/news/create",
+  authMiddleware,
+  adminMiddleware(["admin"]),
+  store,
+  createNews
+);
 router.put(
   "/news/:id/update",
   authMiddleware,
-  adminMiddleware,
+  adminMiddleware(["admin"]),
   store,
   updateNews
 );
-router.delete("/news/:id/delete", authMiddleware, adminMiddleware, deleteNews);
+router.delete(
+  "/news/:id/delete",
+  authMiddleware,
+  adminMiddleware(["admin"]),
+  deleteNews
+);
 
 module.exports = router;
