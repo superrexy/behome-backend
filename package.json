@@ -15,7 +15,7 @@
     "seed": "node prisma/seed.js"
   },
   "dependencies": {
-    "@prisma/client": "4.8.1",
+    "@prisma/client": "4.15.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "cypress": "^12.3.0",
-    "prisma": "^4.8.1",
+    "prisma": "^4.15.0",
     "swagger-autogen": "^2.22.0",
     "swagger-ui-express": "^4.6.0"
   }
