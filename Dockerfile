@@ -20,4 +20,4 @@ RUN yarn install
 
 EXPOSE 3001
 
-CMD yarn prisma generate && yarn prisma migrate deploy && yarn prisma db seed && yarn start
+CMD yarn prisma generate && yarn start
