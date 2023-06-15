@@ -29,8 +29,12 @@ io.on("connection", (socket) => {
 schedule.scheduleJob("*/1 * * * *", async () => {
   const chats = await prisma.chat_rooms.findMany({
     where: {
-      is_closed: true,
-      is_finished: true,
+      AND: [
+        {
+          is_closed: false,
+          is_finished: false,
+        },
+      ],
     },
     include: {
       schedule: {},

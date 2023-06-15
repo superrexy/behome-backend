@@ -154,13 +154,6 @@ module.exports = {
         0
       );
 
-      if (GET_TIME_NOW > new Date(date).getTime()) {
-        throw {
-          statusCode: 400,
-          message: "DATE_ALREADY_PASSED",
-        };
-      }
-
       if (GET_TIME_NOW > GET_TIME_SCHEDULE) {
         throw {
           statusCode: 400,

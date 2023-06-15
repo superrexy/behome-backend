@@ -5,7 +5,7 @@
     "title": "Behome Backend",
     "description": ""
   },
-  "host": "localhost:3000",
+  "host": "localhost:3001",
   "basePath": "/api/v1/",
   "schemes": [
     "http"
