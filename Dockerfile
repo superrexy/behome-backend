@@ -1,4 +1,4 @@
-FROM node:18.12.1-buster-slim
+FROM node:gallium-alpine3.18
 
 # Create app directory
 WORKDIR /usr/src/app
