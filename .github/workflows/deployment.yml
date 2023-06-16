@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           source: "."
-          target: "/home/bintangrezeka/projects-api/behome-backend"
+          target: "/root/projects-api/behome-backend"
 
       - name: Deployment
         uses: appleboy/ssh-action@master
