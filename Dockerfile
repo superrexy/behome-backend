@@ -4,7 +4,7 @@ FROM node:gallium-alpine3.18
 WORKDIR /usr/src/app
 
 # Install OpenSSL
-RUN apt-get update && apt-get install -y openssl
+# RUN apt-get update && apt-get install -y openssl
 
 # Install app dependencies
 COPY package*.json ./
