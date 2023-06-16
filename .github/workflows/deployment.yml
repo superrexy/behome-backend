@@ -44,7 +44,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /home/bintangrezeka/projects-api/behome-backend
+            cd /root/projects-api/behome-backend
             docker compose stop
             docker compose rm -f
             docker compose pull
